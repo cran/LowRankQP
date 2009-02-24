@@ -92,10 +92,6 @@ B. Sch\"olkopf and A. J. Smola. (2002). Learning with Kernels. The MIT Press,
 Cambridge, Massachusetts.
 }
 
-\seealso{
-
-}
-
 \examples{
 library(LowRankQP)
 

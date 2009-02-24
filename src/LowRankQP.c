@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <R.h>
 #include <R_ext/Lapack.h>
 /*
 #include "mkl_lapack.h"
@@ -40,17 +41,17 @@
 void PrintMatrix( char* name, double* vals, int* rows, int* cols )
 {
     int i, j;
-    printf("%8s = [\n", name);
+    Rprintf("%8s = [\n", name);
 
     for (i=0;i<(*rows);i++)
     {
         for (j=0;j<(*cols);j++)
         {
-            printf("%15.10e ", vals[i+j*(*rows)]);
+            Rprintf("%15.10e ", vals[i+j*(*rows)]);
         }
-        printf(";\n");
+        Rprintf(";\n");
     }
-    printf("];\n");
+    Rprintf("];\n");
 }
 
 /*****************************************************************************/
@@ -272,7 +273,7 @@ void MatrixMatrixMult( double *alpha, double* A, int transA, double* B,
 
 void LRQPHeader()
 {
-    printf("ITER  PRIM            DUAL            COMP            GAP           TERM\n");
+    Rprintf("ITER  PRIM            DUAL            COMP            GAP           TERM\n");
 }
 
 /*****************************************************************************/
@@ -386,7 +387,7 @@ void LRQPCalcStats( int *n, int *m, int *p, double *Q, double *c, double *A,
 void LRQPDisplay( int i, double *prim, double *dual, double *comp, double *gap,
                   double *term )
 {
-    printf("%3d %15.7e %15.7e %15.7e %15.7e %15.7e \n", i, *prim, *dual, *comp, *gap, *term );
+    Rprintf("%3d %15.7e %15.7e %15.7e %15.7e %15.7e \n", i, *prim, *dual, *comp, *gap, *term );
 }
 
 /*****************************************************************************/
@@ -396,26 +397,26 @@ void LRQPSummary( int i, int niter, int method, int n, int m, double *prim,
 {
     if (i==niter)
     {
-        printf("LowRankQP FAILED TO CONVERGE\n");
+        Rprintf("LowRankQP FAILED TO CONVERGE\n");
         if (n==m)
         {
-            if (method==CHOL) printf("    Try increasing niter, using method=LU, or rescaling problem.\n");
-            else              printf("    Try increasing niter, or rescaling problem.\n");
+            if (method==CHOL) Rprintf("    Try increasing niter, using method=LU, or rescaling problem.\n");
+            else              Rprintf("    Try increasing niter, or rescaling problem.\n");
         }
         else
         {
-            if (method==SMW)  printf("    Try increasing niter, using method=PFCF, using method=LU, or rescaling problem.\n");
-            else              printf("    Try increasing niter, or rescaling problem.\n");
+            if (method==SMW)  Rprintf("    Try increasing niter, using method=PFCF, using method=LU, or rescaling problem.\n");
+            else              Rprintf("    Try increasing niter, or rescaling problem.\n");
         }
     }
     else
     {
-        printf("LowRankQP CONVERGED IN %d ITERATIONS\n\n", i+1 );
-        printf("    Primal Feasibility    = %15.7e\n", *prim);
-        printf("    Dual Feasibility      = %15.7e\n", *dual);
-        printf("    Complementarity Value = %15.7e\n", *comp);
-        printf("    Duality Gap           = %15.7e\n", *gap);
-        printf("    Termination Condition = %15.7e\n", *term);
+        Rprintf("LowRankQP CONVERGED IN %d ITERATIONS\n\n", i+1 );
+        Rprintf("    Primal Feasibility    = %15.7e\n", *prim);
+        Rprintf("    Dual Feasibility      = %15.7e\n", *dual);
+        Rprintf("    Complementarity Value = %15.7e\n", *comp);
+        Rprintf("    Duality Gap           = %15.7e\n", *gap);
+        Rprintf("    Termination Condition = %15.7e\n", *term);
     }
 }
 

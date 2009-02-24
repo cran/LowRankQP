@@ -1,5 +1,4 @@
-# Default NAMESPACE created by R
-# Remove the previous line if you edit this file
+useDynLib("LowRankQP")
 
 # Export all names
 exportPattern(".")
