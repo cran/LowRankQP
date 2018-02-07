@@ -1,4 +1,2 @@
-useDynLib("LowRankQP")
-
-# Export all names
-exportPattern(".")
+export(LowRankQP)
+useDynLib(LowRankQP)
