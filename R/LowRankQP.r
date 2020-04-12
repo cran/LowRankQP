@@ -47,7 +47,7 @@ LowRankQP <-function(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=
    if (method=="PFCF") methodNum <- 4
 
    res <- .C("LowRankQP", n, m, p, as.integer(methodNum), as.integer(verbose),
-         as.integer(200), Vmat, dvec, t(Amat), bvec, uvec, alpha, beta, xi, 
+         as.integer(niter), Vmat, dvec, t(Amat), bvec, uvec, alpha, beta, xi, 
          zeta, PACKAGE="LowRankQP")
 
    alpha <- res[[12]]

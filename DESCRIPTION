@@ -1,17 +1,17 @@
 Package: LowRankQP
-Version: 1.0.3
-Date: 2018-02-01
+Version: 1.0.4
+Date: 2020-03-27
 Title: Low Rank Quadratic Programming
-Authors@R: c(person("John T.", "Ormerod", role = c("aut"),
-                    email = "jormerod@sydney.edu.au"),
-             person("Matt P.", "Wand", role = c("aut","cre"),
+Authors@R: c(person("John T.", "Ormerod", role = c("aut","cre"),
+                    email = "john.ormerod@sydney.edu.au"),
+             person("Matt P.", "Wand", role = c("aut"),
                     email = "matt.wand@uts.edu.au"))
-Maintainer: Matt P. Wand <matt.wand@uts.edu.au>
+Maintainer: John T. Ormerod <john.ormerod@sydney.edu.au>
 Description: Solves quadratic programming problems where the Hessian is represented as the product of two matrices.
 License: GPL (>= 2)
 NeedsCompilation: yes
-Packaged: 2018-02-07 20:53:00 UTC; mwand
-Author: John T. Ormerod [aut],
-  Matt P. Wand [aut, cre]
+Packaged: 2020-03-27 02:58:34 UTC; jormerod
+Author: John T. Ormerod [aut, cre],
+  Matt P. Wand [aut]
 Repository: CRAN
-Date/Publication: 2018-02-07 23:37:39 UTC
+Date/Publication: 2020-04-12 14:30:02 UTC

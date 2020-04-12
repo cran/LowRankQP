@@ -2,54 +2,61 @@
 #include <R_ext/Rdynload.h>
 
 /* .C calls */
-extern void LowRankQP(void *, void *, void *, void *,void *, void *, void *, void *,
-                      void *, void *, void *, void *,void *, void *, void *);                
-extern void LRQPCalcDx(void *, void *, void *, void *,void *, void *, void *, void *,
-                       void *, void *, void *, void *,void *, void *, void *, void *,
-                       void *, void *, void *, void *,void *, void *, void *, void *,
-                       void *, void *, void *, void *,void *, void *, void *, void *,
-                       void *, void *, void *, void *,void *, void *, void *, void *,
-                       void *);            
-extern void LRQPCalcStats(void *, void *, void *, void *,void *, void *, void *, void *,
-                          void *, void *, void *, void *,void *, void *, void *, void *,
-                          void *, void *, void *, void *,void *, void *, void *, void *,
-                          void *, void *, void *, void *,void *, void *);          
-extern void LRQPDisplay(void *, void *, void *, void *, void *, void *);            
-extern void LRQPFactorize(void *, void *, void *, void *,void *, void *, void *, void *,
-                          void *, void *, void *, void *, void *);            
-extern void LRQPHeader();             
-extern void LRQPInitPoint(void *, void *, void *, void *, void *, void *, void *, void *,
-                          void *, void *, void *, void *, void *);            
-extern void LRQPSolve(void *, void *, void *, void *, void *, void *, void *, void *,
-                      void *, void *, void *, void *, void *, void *);              
-extern void LRQPStep(void *, void *, void *, void *, void *, void *, void *, void *,
-                     void *, void *, void *, void *);                  
-extern void LRQPSummary(void *, void *, void *, void *, void *, void *, void *, void *,
-                        void *, void *);            
-extern void MatrixConstantPlusDiag(void *, void *, void *);  
-extern void MatrixConstantSet(void *, void *, void *, void *);       
-extern void MatrixCholFactorize(void *, void *, void *);    
-extern void MatrixCholSolve(void *, void *, void *, void *, void *);       
-extern void MatrixLUFactorize(void *, void *, void *, void *);       
-extern void MatrixLUSolve(void *, void *, void *, void *, void *); 	       
-extern void MatrixMatrixCopy(void *, void *, void *, void *);        
-extern void MatrixMatrixDiagSolve(void *, void *, void *, void *, void *);   
-extern void MatrixMatrixMinus(void *, void *, void *, void *, void *);       
-extern void MatrixMatrixPlus(void *, void *, void *, void *, void *);        
-extern void MatrixMatrixPlusDiag(void *, void *, void *);   
-extern void MatrixMatrixPlusEquals(void *, void *, void *, void *); 
-extern void MatrixMatrixMult(void *, void *, void *, void *,void *, void *, void *, void *, 
-                             void *, void *, void *, void *,void *);
-extern void MatrixVectorMult(void *, void *, void *, void *,void *, void *, void *, void *);        
-extern void PfcfFactorize(void *, void *, void *, void *,void *, void *, void *, void *,void *);           
-extern void PfcfSolve(void *, void *, void *, void *, void*); 	       
-extern void PrintMatrix(void *, void *, void *, void *); 	       
-extern void VectorAbsSum(void *, void *); 	       
-extern void VectorVectorCopy(void *, void *, void *);       
-extern void VectorVectorDivide(void *, void *, void *, void *);      
-extern void VectorVectorDot(void *, void *, void *); 	       
-extern void VectorVectorMinus(void *, void *, void *, void *);   
-extern void VectorVectorMult(void *, void *, void *, void *);    
+extern void PrintMatrix(char *,double *, int *, int *);
+extern double VectorAbsSum(double *, int *);
+extern void VectorVectorCopy(double *, double *, int *);
+extern void VectorVectorDivide(double *, double *, double *, int *);
+extern void VectorVectorMult(double *, double *, double *, int *);
+extern void VectorVectorMinus(double *, double *, double *, int *);
+extern double VectorVectorDot(double *, double *, int *);
+extern void MatrixMatrixDiagSolve(double *, double *, double *, int *, int *);
+extern void MatrixVectorMult(double *, double *, int *, double *, double *, double *, int *, int *);
+extern void MatrixConstantPlusDiag(double *, double *, int *);
+extern void MatrixCholFactorize(double *, int *, int *);
+extern void MatrixCholSolve(double *, int *, double *, int *, int *);
+extern void MatrixLUFactorize(double *, int *, int *, int *);
+extern void MatrixLUSolve(double *, int *, int *, double *, int *);
+extern void MatrixMatrixPlusDiag(double *, double *, int *);
+extern void MatrixMatrixCopy(double *, double *, int *, int *);
+extern void MatrixMatrixMinus(double *, double *, double *, int *, int *);
+extern void MatrixMatrixPlus(double *, double *, double *, int *, int *);
+extern void MatrixMatrixPlusEquals(double *, double *, int *, int *);
+extern void MatrixConstantSet(double *, double *, int *, int *);
+
+extern void MatrixMatrixMult(double *, double *, int *, double *, int *, double *, double *, int *, 
+    int *, int *, int *, int *, int *);
+    
+extern void LRQPHeader();   
+
+extern void LRQPInitPoint(int *, int *, int *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *);
+
+extern void LRQPCalcStats(int *, int *, int *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *);
+
+extern void LRQPDisplay(int *, double *, double *, double *, double *, double *);
+extern void LRQPSummary(int *, int *, int *, int *, int *, double *, double *, double *, double *, double *);
+extern void PfcfSolve(int *, double *, double *, double *, int *);
+extern void PfcfFactorize(int *, int *, double *, double *, double *, double *, double *, double *, double *);
+extern void LRQPFactorize(int *, int *, int *, double *, double *, double *, int *, double *, 
+    double *, double *, double *, double *, double *);
+    
+extern void LRQPSolve(int *, int *, int *, int *, double *, double *, double *, double *, double *, 
+    int *, double *, double *, double *, double *);
+
+extern void LRQPCalcDx(int *, int *, int *, int *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *, int *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, int *);
+	
+extern void LRQPStep(int *, int *, double *, double *, double *, double *, double *, double *, 
+    double *, double *, double *, double *);
+
+extern void LowRankQP(int *, int *, int *, int *, int *, int *, double *, double *, double *, 
+    double *, double *, double *, double *, double *, double *);
 
 static const R_CMethodDef CEntries[] = {
     {"LowRankQP",              (DL_FUNC) &LowRankQP,	          15},

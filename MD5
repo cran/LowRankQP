@@ -1,8 +1,9 @@
-b75a95f82cce765485d2c74b16e7cf55 *DESCRIPTION
-3be3c6c78bdecfb29b5f21dee9471d4b *NAMESPACE
-6284b28548acd7e537f9247177b90d95 *R/LowRankQP.r
-4fcadbf4ff2c694c559abab09f238978 *R/zzz.r
+28bb56c3dc7c61e903dc2ca4fdc36556 *DESCRIPTION
+ee5a43c0e6622c9c8d7e1f013cf0aa97 *NAMESPACE
+665730323fc0908c68a31cfc26a29710 *R/LowRankQP.r
+60c9fb64ba780f5e56d0777267b6702f *R/zzz.r
 9ef1c76fed197a2712ecb7af81a2a0ac *man/LowRankQP.Rd
-92d1f78ab4ecfaf0963832403bad939c *src/LowRankQP.c
-182e8ad8053ff0775ad4017831fc4dfd *src/LowRankQP_init.c
+830153c8b5e57bbc48bb63fad59b839b *src/LowRankQP.c
+a6148b67da45c96dbc39b16cd39b60ca *src/LowRankQP_init.c
 fcff2191ad41064a68a63dd411ce80c5 *src/Makevars
+6f520659c2ff6217466c9a64a3234c42 *src/Makevars.win
