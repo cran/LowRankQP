@@ -1,6 +1,12 @@
 
+#define USE_FC_LEN_T
+
 #include <R.h>
 #include <R_ext/Lapack.h>
+
+#ifndef FCONE
+# define FCONE
+#endif
 
 #include <Rinternals.h>
 
@@ -62,7 +68,7 @@ void PrintMatrix( char* name, double* vals, int* rows, int* cols )
 double VectorAbsSum( double* v, int *n )
 {
     int one=1;
-    return CTOF(dasum)( n, v, &one );
+    return F77_CALL(dasum)( n, v, &one );
     /* return dasum( n, v, &one ); */
 }
 
@@ -71,7 +77,7 @@ double VectorAbsSum( double* v, int *n )
 void VectorVectorCopy( double* lhs, double* rhs, int* n )
 {
     int one=1;
-    CTOF(dcopy)( n, rhs, &one, lhs, &one );
+    F77_CALL(dcopy)( n, rhs, &one, lhs, &one );
     /* dcopy( n, rhs, &one, lhs, &one ); */
 }
 
@@ -87,7 +93,7 @@ void VectorVectorDivide( double* top, double* bot, double* res, int* n )
 void VectorVectorMult( double* alpha, double* x, double* y, int* n )
 {
     int one=1;
-    CTOF(daxpy)( n, alpha, x, &one, y, &one );
+    F77_CALL(daxpy)( n, alpha, x, &one, y, &one );
     /* daxpy( n, alpha, x, &one, y, &one ); */
 }
 
@@ -105,7 +111,7 @@ void VectorVectorMinus( double* x, double* y, double* res, int* n )
 double VectorVectorDot( double* x, double* y, int* n )
 {
     int one=1;
-    return CTOF(ddot)( n, x, &one, y, &one );
+    return F77_CALL(ddot)( n, x, &one, y, &one );
     /* return ddot( n, x, &one, y, &one ); */
 }
 
@@ -131,12 +137,12 @@ void MatrixVectorMult( double* alpha, double* A, int* trans, double* x, double* 
     int one=1;
     if ((*trans))
     {
-        CTOF(dgemv)("T", rows, cols, alpha, A, rows, x, &one, beta, b, &one );
+        F77_CALL(dgemv)("T", rows, cols, alpha, A, rows, x, &one, beta, b, &one FCONE  );
         /* dgemv('T', *rows, *cols, *alpha, A, *rows, x, one, *beta, b, one ); */
     }
     else
     {
-        CTOF(dgemv)("N", rows, cols, alpha, A, rows, x, &one, beta, b, &one );
+        F77_CALL(dgemv)("N", rows, cols, alpha, A, rows, x, &one, beta, b, &one FCONE  );
         /* dgemv('N', *rows, *cols, *alpha, A, *rows, x, one, *beta, b, one ); */
     }
 }
@@ -153,7 +159,7 @@ void MatrixConstantPlusDiag( double* A, double * c, int* n )
 
 void MatrixCholFactorize( double* A, int* n, int* info )
 {
-    CTOF(dpotrf)( "L", n, A, n, info );
+    F77_CALL(dpotrf)( "L", n, A, n, info FCONE);
     /* dpotrf( 'L', *n, A, *n, info ); */
 }
 
@@ -161,7 +167,7 @@ void MatrixCholFactorize( double* A, int* n, int* info )
 
 void MatrixCholSolve( double* A, int* n, double* rhs, int *nrhs, int* info )
 {
-    CTOF(dpotrs)("L", n, nrhs, A, n, rhs, n, info );
+    F77_CALL(dpotrs)("L", n, nrhs, A, n, rhs, n, info FCONE );
     /* dpotrs('L', *n, *nrhs, A, *n, rhs, *n, info ); */
 }
 
@@ -169,7 +175,7 @@ void MatrixCholSolve( double* A, int* n, double* rhs, int *nrhs, int* info )
 
 void MatrixLUFactorize( double* A, int* n, int* ipiv, int* info )
 {
-    CTOF(dgetrf)( n, n, A, n, ipiv, info );
+    F77_CALL(dgetrf)( n, n, A, n, ipiv, info );
     /* dgetrf( *n, *n, A, *n, ipiv, info ); */
 }
 
@@ -178,7 +184,7 @@ void MatrixLUFactorize( double* A, int* n, int* ipiv, int* info )
 void MatrixLUSolve( double* A, int* n, int* ipiv, double* rhs, int *nrhs )
 {
     int info = 0;
-    CTOF(dgetrs)("N", n, nrhs, A, n, ipiv, rhs, n, &info );
+    F77_CALL(dgetrs)("N", n, nrhs, A, n, ipiv, rhs, n, &info FCONE);
     /* dgetrs('N', *n, *nrhs, A, *n, ipiv, rhs, *n, &info ); */
 }
 
@@ -243,12 +249,12 @@ void MatrixMatrixMult( double *alpha, double* A, int* transA, double* B, int* tr
     {
         if ((*transB))
         {
-            CTOF(dgemm)( "T", "T", rC, cC, cB, alpha, A, rA, B, rB, beta, C, rC );
+            F77_CALL(dgemm)( "T", "T", rC, cC, cB, alpha, A, rA, B, rB, beta, C, rC  FCONE FCONE);
             /* dgemm( 'T', 'T', *rC, *cC, *cB, *alpha, A, *rA, B, *rB, *beta, C, *rC ); */
         }
         else
         {
-            CTOF(dgemm)( "T", "N", rC, cC, rB, alpha, A, rA, B, rB, beta, C, rC );
+            F77_CALL(dgemm)( "T", "N", rC, cC, rB, alpha, A, rA, B, rB, beta, C, rC  FCONE FCONE);
             /* dgemm( 'T', 'N', *rC, *cC, *rB, *alpha, A, *rA, B, *rB, *beta, C,*rC ); */
         }
     }
@@ -256,12 +262,12 @@ void MatrixMatrixMult( double *alpha, double* A, int* transA, double* B, int* tr
     {
         if ((*transB))
         {
-            CTOF(dgemm)( "N", "T", rC, cC, cA, alpha, A, rA, B, rB, beta, C, rC );
+            F77_CALL(dgemm)( "N", "T", rC, cC, cA, alpha, A, rA, B, rB, beta, C, rC  FCONE FCONE);
             /* dgemm( 'N', 'T', *rC, *cC, *cA, *alpha, A, *rA, B, *rB, *beta, C, *rC ); */
         }
         else
         {
-            CTOF(dgemm)( "N", "N", rC, cC, cA, alpha, A, rA, B, rB, beta, C, rC );
+            F77_CALL(dgemm)( "N", "N", rC, cC, cA, alpha, A, rA, B, rB, beta, C, rC  FCONE FCONE);
             /* dgemm( 'N', 'N', *rC, *cC, *cA, *alpha, A, *rA, B, *rB, *beta, C, *rC ); */
         }
     }
