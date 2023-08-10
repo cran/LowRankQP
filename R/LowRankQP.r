@@ -2,9 +2,9 @@
 
 # For low rank quadratic programming.
 
-# Last changed: 13 SEP 2005
+# Last changed: 28 JUL 2023
 
-LowRankQP <-function(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200)
+LowRankQP <-function(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200,epsterm=1.0E-8)
 {
    # Some Type Checking
    typeError <- FALSE
@@ -48,7 +48,7 @@ LowRankQP <-function(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=
 
    res <- .C("LowRankQP", n, m, p, as.integer(methodNum), as.integer(verbose),
          as.integer(niter), Vmat, dvec, t(Amat), bvec, uvec, alpha, beta, xi, 
-         zeta, PACKAGE="LowRankQP")
+         zeta, epsterm, PACKAGE="LowRankQP")
 
    alpha <- res[[12]]
    beta  <- res[[13]]

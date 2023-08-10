@@ -26,7 +26,7 @@ extern void MatrixConstantSet(double *, double *, int *, int *);
 extern void MatrixMatrixMult(double *, double *, int *, double *, int *, double *, double *, int *, 
     int *, int *, int *, int *, int *);
     
-extern void LRQPHeader();   
+//extern void LRQPHeader(void);
 
 extern void LRQPInitPoint(int *, int *, int *, double *, double *, double *, double *, double *, 
     double *, double *, double *, double *, double *, double *);
@@ -56,15 +56,14 @@ extern void LRQPStep(int *, int *, double *, double *, double *, double *, doubl
     double *, double *, double *, double *);
 
 extern void LowRankQP(int *, int *, int *, int *, int *, int *, double *, double *, double *, 
-    double *, double *, double *, double *, double *, double *);
+    double *, double *, double *, double *, double *, double *, double *);
 
 static const R_CMethodDef CEntries[] = {
-    {"LowRankQP",              (DL_FUNC) &LowRankQP,	          15},
+    {"LowRankQP",              (DL_FUNC) &LowRankQP,	          16},
     {"LRQPCalcDx",             (DL_FUNC) &LRQPCalcDx,	       	  41},
     {"LRQPCalcStats",          (DL_FUNC) &LRQPCalcStats,	  30},     
     {"LRQPDisplay",            (DL_FUNC) &LRQPDisplay,	           6},
     {"LRQPFactorize",          (DL_FUNC) &LRQPFactorize,	  13},     
-    {"LRQPHeader",             (DL_FUNC) &LRQPHeader,	           0},
     {"LRQPInitPoint",          (DL_FUNC) &LRQPInitPoint,	  13},     
     {"LRQPSolve",              (DL_FUNC) &LRQPSolve,	          14},
     {"LRQPStep",               (DL_FUNC) &LRQPStep,	          12},

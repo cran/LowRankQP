@@ -275,13 +275,6 @@ void MatrixMatrixMult( double *alpha, double* A, int* transA, double* B, int* tr
 
 /*****************************************************************************/
 
-void LRQPHeader()
-{
-    Rprintf("ITER  PRIM            DUAL            COMP            GAP           TERM\n");
-}
-
-/*****************************************************************************/
-
 void LRQPInitPoint( int *n, int *m, int *p, double *Q, double *c, double *A,
     double *b, double *u, double *alpha, double* beta, double *xi, double *zeta,
     double *w, double *temp )
@@ -734,7 +727,7 @@ void LRQPStep( int *n, int *p, double *alpha, double* beta, double *xi,
 
 void LowRankQP( int *n, int *m, int *p, int* method, int* verbose, int* niter, 
     double *Q, double *c, double *A, double *b, double *u, double *alpha,
-    double* beta, double *xi, double *zeta)
+    double* beta, double *xi, double *zeta, double *epsterm)
 {
     int i;
     
@@ -829,11 +822,12 @@ void LowRankQP( int *n, int *m, int *p, int* method, int* verbose, int* niter,
     }
 
     /* Main Loop */
-    if ( *verbose ) LRQPHeader();
+    if ( *verbose ) {
+        Rprintf("ITER  PRIM            DUAL            COMP            GAP           TERM\n");
+    }
+    
     LRQPInitPoint( n, m, p, Q, c, A, b, u, alpha, beta, xi, zeta, w, r1 );
 
-
-	
     for (i=0;i<(*niter);i++)
     {
         // start = clock();  
@@ -846,13 +840,13 @@ void LowRankQP( int *n, int *m, int *p, int* method, int* verbose, int* niter,
         // TimeIpmCalcStats += (finish - start)/CLK_TCK;  
 
         if ( *verbose ) LRQPDisplay( &i, &prim, &dual, &comp, &gap, &term  );
-        if ( term < EPSTERM ) break;
+        if ( term < (*epsterm) ) break;
 
 
         LRQPFactorize( n, m, method, Q, D, M, pivN, buffNxM, P, Beta, Lambda,
             LambdaTemp, T );
             
- 
+
         LRQPCalcDx( n, m, p, method, Q, c, A, b, u, alpha, beta, xi, zeta,
             dalpha, dbeta, dxi, dzeta, UminusAlpha, ZetaOnAlpha, 
             XiOnUminusAlpha, buffMxP, buffMx1, buffPxP, buffPx1, pivN, R, r, r1,
@@ -869,7 +863,7 @@ void LowRankQP( int *n, int *m, int *p, int* method, int* verbose, int* niter,
             UminusAlpha, &mult );  
     }
     
-    LRQPSummary( &i, niter, method, n, m, &prim, &dual, &comp, &gap, &term );
+    if ( *verbose ) LRQPSummary( &i, niter, method, n, m, &prim, &dual, &comp, &gap, &term );
     
    
 

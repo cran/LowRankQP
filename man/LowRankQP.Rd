@@ -18,7 +18,7 @@
   where \eqn{H=V} if \eqn{V} is square and \eqn{H=VV^T} otherwise.
 }
 \usage{
-LowRankQP(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200)
+LowRankQP(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200,epsterm=1.0E-8)
 }
 \arguments{
   \item{Vmat}{
@@ -35,7 +35,7 @@ LowRankQP(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200)
     vector holding the values of \eqn{b} (defaults to zero).
   }
   \item{uvec}{
-    vector holding the values of \eqn{u} .
+    vector holding the values of \eqn{u}.
   }
   \item{method}{
     Method used for inverting H+D where D is full rank diagonal. 
@@ -51,12 +51,14 @@ LowRankQP(Vmat,dvec,Amat,bvec,uvec,method="PFCF",verbose=FALSE,niter=200)
     }
   }
   \item{verbose}{
-    Display iterations of LowRankQP.
+    Display iterations and termination statistics.
   }
   \item{niter}{
     Number of iteration to perform.
   }
-  
+  \item{epsterm}{
+    Termination tolerance. See equation (12) of Ormerod et al (2008).
+  }  
 }
 \value{
 a list with the following components:
@@ -75,10 +77,8 @@ vector containing the solution of the dual quadratic programming problem.
 }
 
 \references{
-Ormerod, J.T., Wand, M.P. and Koch, I. (2005). Penalised spline support vector 
-classifiers: computational issues, in A.R. Francis, K.M. Matawie, A. Oshlack, 
-G.K. Smyth (eds). Proceedings of the 20th International Workshop on Statistical 
-Modelling, Sydney, Australia, pp. 33-47.
+Ormerod, J.T., Wand, M.P. and Koch, I. (2008). Penalised spline support vector 
+classifiers: computational issues, Computational Statistics, 23, 623-641.
 
 Boyd, S. and Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press. 
       
